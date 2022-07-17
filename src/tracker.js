@@ -1,17 +1,12 @@
-import { generateUUID } from "./uid";
 import { setSessionCoookie, getOrCreateSession } from "./session";
+import { getNow } from "./utils";
 
 const rootName = "XNSS";
 let rootUrl = window.XNSSServerRoot || SERVER_ENDPOINT;
 let sendEvents = window.XNSSDEBUG || false;
-const cookieTTL = window.XNSSSessionTTL || 60 * 1000;
 const landingTime = window.XNSSLandingTime || 10 * 1000; //ms
 const skipLanding = window.XNSSNoLanding || false;
 const siteId = window.XNSSSiteId;
-
-function getNow() {
-  return new Date();
-}
 
 if (!window[rootName]) {
   window[rootName] = {

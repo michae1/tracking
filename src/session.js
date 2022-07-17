@@ -1,3 +1,8 @@
+import { generateUUID } from "./uid";
+import { getNow } from "./utils";
+
+const cookieTTL = window.XNSSSessionTTL || 60 * 1000;
+
 export function setSessionCoookie(sessionId) {
   var now = getNow();
   var time = now.getTime();

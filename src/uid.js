@@ -1,3 +1,5 @@
+import { getNow } from "./utils";
+
 export function generateUUID() {
   // Public Domain/MIT
   var now = getNow();
