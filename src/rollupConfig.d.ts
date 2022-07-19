@@ -1,1 +1,1 @@
-declare var ROOT_NAME: string
+declare var ROOT_NAME: string;
