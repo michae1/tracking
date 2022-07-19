@@ -1,9 +1,8 @@
 import { ISensor } from "./ISensor";
+import { LoadReportEvent } from "../EventEmitter/events/LoadReportEvent";
 import { injectable, injectAll, registry, container } from "tsyringe";
 import { EventEmitter } from "../EventEmitter";
 const events = container.resolve(EventEmitter);
-
-console.log("hi");
 
 @injectable()
 @registry([{ token: "ISensor", useValue: LoadSensor }])
@@ -16,9 +15,14 @@ export class LoadSensor implements ISensor {
   }
   static init(): void {
     console.log("wait for load");
-    events.addEventListener("load", () => {
-      console.error("loaded");
+    events.addEventListener("system/load", (event) => {
+      const loadTime =
+        window.performance.timing.domContentLoadedEventEnd -
+        window.performance.timing.navigationStart;
+      console.log("system/loaded", loadTime);
+      events.dispatchEvent(
+        new CustomEvent("report/load", { time: loadTime } as any)
+      );
     });
-    //subscribe on events
   }
 }

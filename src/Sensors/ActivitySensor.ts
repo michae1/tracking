@@ -1,6 +1,7 @@
 import { ISensor } from "./ISensor";
 import { injectable, injectAll, registry, container } from "tsyringe";
 import { EventEmitter } from "../EventEmitter";
+import { UserActivityReportEvent } from "../EventEmitter/events/UserActivityReportEvent";
 const events = container.resolve(EventEmitter);
 
 // Params:
@@ -9,22 +10,39 @@ const events = container.resolve(EventEmitter);
 @injectable()
 @registry([{ token: "ISensor", useValue: ActivitySensor }])
 export class ActivitySensor implements ISensor {
-  static lastActive: number;
+  static lastActive: number = 0;
+  static activeTimes: number = 0;
   getCallableName() {
     return null;
   }
   static resetTimer = () => {
     ActivitySensor.lastActive = Date.now();
   };
-  static init(): void {
-    setInterval(() => {
-      console.log(this.lastActive);
-      if (!this.lastActive || Date.now() - this.lastActive > 1000) {
+  static runCheck = () => {
+    setTimeout(() => {
+      if (
+        !ActivitySensor.lastActive ||
+        Date.now() - ActivitySensor.lastActive > 1000
+      ) {
+        ActivitySensor.activeTimes -= 1;
         console.log("inactive");
       } else {
+        ActivitySensor.activeTimes += 1;
         console.log("active");
       }
+      if (ActivitySensor.activeTimes > 5 || ActivitySensor.activeTimes < -5) {
+        events.dispatchEvent(
+          new CustomEvent("report/userActivity", {
+            activityLevel: ActivitySensor.activeTimes,
+          } as any)
+        );
+      } else {
+        ActivitySensor.runCheck();
+      }
     }, 1000);
+  };
+  static init(): void {
     document.addEventListener("mousemove", ActivitySensor.resetTimer, false);
+    ActivitySensor.runCheck();
   }
 }

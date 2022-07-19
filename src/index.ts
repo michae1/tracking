@@ -1,6 +1,11 @@
 import "@abraham/reflection";
 import { container } from "tsyringe";
 import { EventEmitter } from "./EventEmitter";
+
+// choose implementation:
+import { ConsoleReporter } from "./Reporters/ConsoleReporter";
+ConsoleReporter.init();
+
 import "./Sensors";
 // import {LoadSensor} from  './Sensors/LoadSensor';
 // console.log(LoadSensor)
@@ -23,11 +28,12 @@ if (!(window as any)[rootName]) {
   };
 }
 const instance = container.resolve(EventEmitter);
+const reporter = container.resolve("IReporter");
 
-QueueProcessor.init();
+// QueueProcessor.init();
 
 setTimeout(() => {
-  events.dispatchEvent(new CustomEvent("load", { a: 4 } as any));
+  events.dispatchEvent(new CustomEvent("system/load", {} as any));
 }, 1000);
 
 const v = container.resolve(App);

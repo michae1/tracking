@@ -23,3 +23,10 @@ Config:
 }
 
 todo: change sensors from static classes to objects/instances
+
+
+events:
+system/load etc
+track/load etc track/userinactive
+
+system-----> sensor ----track----->reporter(queued/realtime)
