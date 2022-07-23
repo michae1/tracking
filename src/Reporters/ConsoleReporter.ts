@@ -1,9 +1,7 @@
-import { injectable, injectAll, registry, container } from "tsyringe";
+import { container } from "../IoC/Container";
 import { EventEmitter, eventNames } from "../EventEmitter";
-const events = container.resolve(EventEmitter);
+const events = container.resolve<EventEmitter>('EventEmitter');
 
-@injectable()
-@registry([{ token: "IReporter", useValue: ConsoleReporter }])
 export class ConsoleReporter {
   constructor() {
     console.log("created loadsensor");
@@ -17,3 +15,5 @@ export class ConsoleReporter {
     }
   }
 }
+
+container.register('IReporter', ConsoleReporter);

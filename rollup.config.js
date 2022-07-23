@@ -1,5 +1,6 @@
-import babel from "@rollup/plugin-babel";
-import babelrc from "babelrc-rollup";
+
+// import babel from "@rollup/plugin-babel";
+// import babelrc from "babelrc-rollup";
 import replace from "@rollup/plugin-replace";
 import clientConfig from "./config/index";
 import { terser } from "rollup-plugin-terser";

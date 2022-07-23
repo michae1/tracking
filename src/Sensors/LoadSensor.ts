@@ -1,11 +1,9 @@
 import { ISensor } from "./ISensor";
+import { container } from "../IoC/Container";
 import { LoadReportEvent } from "../EventEmitter/events/LoadReportEvent";
-import { injectable, injectAll, registry, container } from "tsyringe";
 import { EventEmitter } from "../EventEmitter";
-const events = container.resolve(EventEmitter);
+const events = container.resolve<EventEmitter>('EventEmitter');
 
-@injectable()
-@registry([{ token: "ISensor", useValue: LoadSensor }])
 export class LoadSensor implements ISensor {
   constructor() {
     console.log("created loadsensor");
@@ -26,3 +24,5 @@ export class LoadSensor implements ISensor {
     });
   }
 }
+
+container.register('Isensor', LoadSensor);
