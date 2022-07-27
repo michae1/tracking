@@ -7,8 +7,11 @@ import { terser } from "rollup-plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import resolve from '@rollup/plugin-node-resolve';
 import analyze from 'rollup-plugin-analyzer'
-
+import fs from 'fs';
 let pkg = require("./package.json");
+
+
+fs.writeFileSync('src/globalLoad.js','var js=1;');
 
 // let external = Object.keys(pkg.dependencies);
 const ENV = process.env.NODE_ENV || "development";

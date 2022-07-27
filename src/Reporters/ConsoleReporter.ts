@@ -1,13 +1,13 @@
 import { container } from "../IoC/Container";
 import { EventEmitter, eventNames } from "../EventEmitter";
-const events = container.resolve<EventEmitter>('EventEmitter');
+const events = container.resolve<EventEmitter>("EventEmitter");
 
 export class ConsoleReporter {
   constructor() {
     console.log("created loadsensor");
   }
   static report = (n: string, e: any) => {
-    console.log(n, e);
+    console.log(n, e?.detail);
   };
   static init(): void {
     for (let n of eventNames) {
@@ -16,4 +16,4 @@ export class ConsoleReporter {
   }
 }
 
-container.register('IReporter', ConsoleReporter);
+container.register("IReporter", ConsoleReporter);

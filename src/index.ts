@@ -1,18 +1,13 @@
 import { container } from "./IoC/Container";
 
-
 // choose implementation, TODO MOVE TO DYNAMICALLY GENERATED FILE
 import { EventEmitter } from "./EventEmitter";
 
 import { ConsoleReporter } from "./Reporters/ConsoleReporter";
 ConsoleReporter.init();
 
-
-
 // App init
 import { App } from "./App";
-
-
 
 // application:
 // load modules, config
@@ -22,6 +17,5 @@ import { App } from "./App";
 // process queue
 // const instance = container.resolve(EventEmitter);
 
-
-App.run()
+App.run();
 console.log(App.Sensors);

@@ -2,7 +2,7 @@ import { ISensor } from "./ISensor";
 import { container } from "../IoC/Container";
 import { LoadReportEvent } from "../EventEmitter/events/LoadReportEvent";
 import { EventEmitter } from "../EventEmitter";
-const events = container.resolve<EventEmitter>('EventEmitter');
+const events = container.resolve<EventEmitter>("EventEmitter");
 
 export class LoadSensor implements ISensor {
   constructor() {
@@ -19,10 +19,12 @@ export class LoadSensor implements ISensor {
         window.performance.timing.navigationStart;
       console.log("system/loaded", loadTime);
       events.dispatchEvent(
-        new CustomEvent("report/load", { time: loadTime } as any)
+        new CustomEvent("report/load", {
+          detail: { time: loadTime } as any,
+        })
       );
     });
   }
 }
 
-container.register('Isensor', LoadSensor);
+container.register("Isensor", LoadSensor);

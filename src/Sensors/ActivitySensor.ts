@@ -2,7 +2,7 @@ import { ISensor } from "./ISensor";
 import { container } from "../IoC/Container";
 import { EventEmitter } from "../EventEmitter";
 import { UserActivityReportEvent } from "../EventEmitter/events/UserActivityReportEvent";
-const events = container.resolve<EventEmitter>('EventEmitter');
+const events = container.resolve<EventEmitter>("EventEmitter");
 
 // Params:
 // timeToActive
@@ -31,8 +31,10 @@ export class ActivitySensor implements ISensor {
       if (ActivitySensor.activeTimes > 5 || ActivitySensor.activeTimes < -5) {
         events.dispatchEvent(
           new CustomEvent("report/userActivity", {
-            activityLevel: ActivitySensor.activeTimes,
-          } as any)
+            detail: {
+              activityLevel: ActivitySensor.activeTimes,
+            } as any,
+          })
         );
       } else {
         ActivitySensor.runCheck();
@@ -45,4 +47,4 @@ export class ActivitySensor implements ISensor {
   }
 }
 
-container.register('ISensor', ActivitySensor);
+container.register("ISensor", ActivitySensor);

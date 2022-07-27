@@ -7,10 +7,7 @@ export class EventEmitter extends EventTarget {}
 
 const events = new EventTarget();
 
-container.register(
-  'EventEmitter',
-  events
-);
+container.register("EventEmitter", events);
 
 export const eventNames = [
   UserActivityReportEventName,
