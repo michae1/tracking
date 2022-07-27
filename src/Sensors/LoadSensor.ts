@@ -27,4 +27,6 @@ export class LoadSensor implements ISensor {
   }
 }
 
+LoadSensor.init();
+
 container.register("Isensor", LoadSensor);

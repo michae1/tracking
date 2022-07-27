@@ -47,4 +47,6 @@ export class ActivitySensor implements ISensor {
   }
 }
 
+ActivitySensor.init();
+
 container.register("ISensor", ActivitySensor);

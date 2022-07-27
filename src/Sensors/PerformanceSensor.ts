@@ -75,4 +75,6 @@ export class PerformanceSensor implements ISensor {
   };
 }
 
+PerformanceSensor.init();
+
 container.register("ISensor", PerformanceSensor);

@@ -2,7 +2,6 @@ import { container } from "./IoC/Container";
 import { ISensor } from "./Sensors/ISensor";
 import { QueueProcessor } from "./Queue";
 import { EventEmitter } from "./EventEmitter";
-import "./Sensors";
 
 const rootName = ROOT_NAME || "TRACKINGSYSTEM";
 

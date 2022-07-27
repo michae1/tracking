@@ -1,10 +1,6 @@
 import { container } from "./IoC/Container";
 
-// choose implementation, TODO MOVE TO DYNAMICALLY GENERATED FILE
-import { EventEmitter } from "./EventEmitter";
-
-import { ConsoleReporter } from "./Reporters/ConsoleReporter";
-ConsoleReporter.init();
+import './globalLoad';
 
 // App init
 import { App } from "./App";

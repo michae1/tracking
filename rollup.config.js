@@ -10,10 +10,27 @@ import analyze from 'rollup-plugin-analyzer'
 import fs from 'fs';
 let pkg = require("./package.json");
 
+let appModules = [];
 
-fs.writeFileSync('src/globalLoad.js','var js=1;');
+if (fs.existsSync('modules.son')) {
 
-// let external = Object.keys(pkg.dependencies);
+} else {
+  appModules = JSON.parse(fs.readFileSync('modules.default.json'));
+}
+
+let content = "// File is auto generated \n";
+
+appModules.forEach(m => {
+  if (fs.existsSync('src/' + m + '.ts')) {
+    content += `import \"${m}\";\n`;
+    // content += `${m.name}.init && ${m.name}.init();\n`;
+  } else {
+    console.error(`Ignoring module ${m}: file does not exist`);
+  }
+})
+
+fs.writeFileSync('src/globalLoad.js',content);
+
 const ENV = process.env.NODE_ENV || "development";
 let plugins = [
   typescript(),

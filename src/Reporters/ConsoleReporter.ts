@@ -3,9 +3,6 @@ import { EventEmitter, eventNames } from "../EventEmitter";
 const events = container.resolve<EventEmitter>("EventEmitter");
 
 export class ConsoleReporter {
-  constructor() {
-    console.log("created loadsensor");
-  }
   static report = (n: string, e: any) => {
     console.log(n, e?.detail);
   };
@@ -15,5 +12,7 @@ export class ConsoleReporter {
     }
   }
 }
+
+ConsoleReporter.init();
 
 container.register("IReporter", ConsoleReporter);
