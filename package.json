@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "main": "build/index.js",
-    "serviceWorker": "build/worker.js",
+    "outputDir": "build",
     "scripts": {
         "build": "NODE_ENV=production rollup -c --environment BUILD:production",
         "build:production": "NODE_ENV=production rollup -c --environment BUILD:production",

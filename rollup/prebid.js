@@ -7,12 +7,17 @@ const SPECIAL_IMPORT = {
   'unruly':'adapter'
 }
 
+const limitedList = [
+  'triplelift'
+]
+
+
 function prepareBiddersMap(){
   const modules = {};
   const folder = './node_modules/prebid.js/modules';
   let fileCount = 0;
   let urlCount = 0;
-  fs.readdirSync(folder).forEach(file => {
+  fs.readdirSync(folder).filter(file=>limitedList.includes(file.replace('BidAdapter.js',''))).forEach(file => {
     if (!file.endsWith('BidAdapter.js')){
       return;
     }

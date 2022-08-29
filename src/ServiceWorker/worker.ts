@@ -1,15 +1,21 @@
 import "./mocks";
 import parse, {known} from "../Analyzers/Prebid/adapter";
 
-// self.addEventListener('install', function(event) {
-//     event.waitUntil(self.skipWaiting()); // Activate worker immediately
-//     console.log('Ready!');
-// });
+console.log('worker 27');
+// (async ()=>{
+//   console.log('lets load');
+//   if (Date.now()>0){
+//     console.log('loading');
+//     await import("./dyn");
+//   }
+// })()
+self.addEventListener('install', function(event) {
+    event.waitUntil(self.skipWaiting()); // Activate worker immediately
+});
 
-// self.addEventListener('activate', function(event) {
-//     event.waitUntil(self.clients.claim()); // Become available to all pages
-//     console.log('Ready2!');
-// });
+self.addEventListener('activate', function(event) {
+    event.waitUntil(self.clients.claim()); // Become available to all pages
+});
 
 let messagePort: MessagePort;
 self.addEventListener("message", (event) => {
@@ -40,7 +46,7 @@ self.addEventListener("fetch", (event: FetchEvent) => {
 });
 
 async function analyze(req: Request, res: Response) {
-  console.log("analyzing", req, res);
+  console.log("analyzing 77", req, res);
   let requestPayload;
   try {
     requestPayload = await req.json();
@@ -55,7 +61,8 @@ async function analyze(req: Request, res: Response) {
   console.log("req.url", req.url);
   let urlObj = (new URL(req.url));
   const domain = urlObj.hostname;
-  console.log('domain', domain)
+  console.log('domain', domain);
+  console.log('known', known);
   if (known.has(domain)) {
     console.log("rtb detected");
     const parsed = await parse(req.url, requestPayload);

@@ -22,7 +22,7 @@ export class NetworkSensor implements ISensor {
             // service workers not supported 😣
             return;
           }
-          navigator.serviceWorker.register("build/worker.js").then(
+          navigator.serviceWorker.register("worker.js").then(
             () => {
               // registered! 👍🏼
               console.log("SW registered");

@@ -74,12 +74,11 @@ export default [
   ],
 },
 {
-  input: "src/ServiceWorker/index.ts",
+  input: "src/ServiceWorker/worker.ts",
   plugins: plugins,
-  inlineDynamicImports: true,
   output: [
     {
-      file: pkg.serviceWorker,
+      dir: pkg.outputDir,
       format: "es",
     },
   ],
