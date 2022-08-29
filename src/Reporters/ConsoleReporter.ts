@@ -4,7 +4,9 @@ const events = container.resolve<EventEmitter>("EventEmitter");
 
 export class ConsoleReporter {
   static report = (n: string, e: any) => {
-    const landscape = performance.getEntriesByType("resource").map(r => r.name);
+    const landscape = performance
+      .getEntriesByType("resource")
+      .map((r) => r.name);
     console.log(n, e?.detail, landscape);
   };
   static init(): void {

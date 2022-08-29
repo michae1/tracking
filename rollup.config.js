@@ -6,8 +6,11 @@ import clientConfig from "./config/index";
 import { terser } from "rollup-plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import resolve from '@rollup/plugin-node-resolve';
+import json from '@rollup/plugin-json';
 import analyze from 'rollup-plugin-analyzer'
+import prepareBiddersMap from './rollup/prebid';
 import fs from 'fs';
+import cjs from '@rollup/plugin-commonjs';
 let pkg = require("./package.json");
 
 let appModules = [];
@@ -31,8 +34,12 @@ appModules.forEach(m => {
 
 fs.writeFileSync('src/globalLoad.js',content);
 
+prepareBiddersMap();
+
 const ENV = process.env.NODE_ENV || "development";
 let plugins = [
+  json(),
+  cjs(),
   typescript(),
   // babel(babelrc()),
   replace({
@@ -55,7 +62,8 @@ if (ENV === "production") {
   plugins.push(terser());
 }
 
-export default {
+export default [
+{
   input: "src/index.ts",
   plugins: plugins,
   output: [
@@ -64,4 +72,16 @@ export default {
       format: "iife",
     },
   ],
-};
+},
+{
+  input: "src/ServiceWorker/index.ts",
+  plugins: plugins,
+  inlineDynamicImports: true,
+  output: [
+    {
+      file: pkg.serviceWorker,
+      format: "es",
+    },
+  ],
+}
+];
