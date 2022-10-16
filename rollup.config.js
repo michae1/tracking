@@ -7,8 +7,7 @@ import { terser } from "rollup-plugin-terser";
 import typescript from "@rollup/plugin-typescript";
 import resolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
-import analyze from 'rollup-plugin-analyzer'
-import prepareBiddersMap from './rollup/prebid';
+import analyze from 'rollup-plugin-analyzer';
 import fs from 'fs';
 import cjs from '@rollup/plugin-commonjs';
 let pkg = require("./package.json");
@@ -33,8 +32,6 @@ appModules.forEach(m => {
 })
 
 fs.writeFileSync('src/globalLoad.js',content);
-
-prepareBiddersMap();
 
 const ENV = process.env.NODE_ENV || "development";
 let plugins = [
@@ -72,15 +69,15 @@ export default [
       format: "iife",
     },
   ],
-},
-{
-  input: "src/ServiceWorker/worker.ts",
-  plugins: plugins,
-  output: [
-    {
-      dir: pkg.outputDir,
-      format: "es",
-    },
-  ],
+// },
+// {
+//   input: "src/ServiceWorker/worker.ts",
+//   plugins: plugins,
+//   output: [
+//     {
+//       dir: pkg.outputDir,
+//       format: "es",
+//     },
+//   ],
 }
 ];

@@ -1,12 +1,12 @@
 import { setSessionCoookie, getOrCreateSession } from "./session";
 import { getNow } from "./utils";
 
-const rootName = "XNSS";
-let rootUrl = window.XNSSServerRoot || SERVER_ENDPOINT;
-let sendEvents = window.XNSSDEBUG || false;
-const landingTime = window.XNSSLandingTime || 10 * 1000; //ms
-const skipLanding = window.XNSSNoLanding || false;
-const siteId = window.XNSSSiteId;
+const rootName = "GPWC";
+let rootUrl = window.GPWCServerRoot || SERVER_ENDPOINT;
+let sendEvents = window.GPWCDEBUG || false;
+const landingTime = window.GPWCLandingTime || 10 * 1000; //ms
+const skipLanding = window.GPWCNoLanding || false;
+const siteId = window.GPWCSiteId;
 
 if (!window[rootName]) {
   window[rootName] = {
@@ -59,11 +59,11 @@ if (!window[rootName]) {
 // Check if cookie was set
 if (!skipLanding) {
   const landingCookie = document.cookie.replace(
-    /(?:(?:^|.*;\s*)XNSSlanding\s*\=\s*([^;]*).*$)|^.*$/,
+    /(?:(?:^|.*;\s*)GPWClanding\s*\=\s*([^;]*).*$)|^.*$/,
     "$1"
   );
   if (!landingCookie) {
-    document.cookie = "XNSSlanding=true";
+    document.cookie = "GPWClanding=true";
     const timer = setTimeout(() => {
       var now = getNow();
       if (!skipLanding) {
