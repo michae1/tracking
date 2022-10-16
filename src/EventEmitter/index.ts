@@ -1,4 +1,4 @@
-import { container, Lifecycle } from "tsyringe";
+import { container } from "../IoC/Container";
 import { LoadReportEventName } from "./events/LoadReportEvent";
 import { UserActivityReportEventName } from "./events/UserActivityReportEvent";
 import { PerformanceReportEventName } from "./events/PerformanceReportEvent";
@@ -7,11 +7,7 @@ export class EventEmitter extends EventTarget {}
 
 const events = new EventTarget();
 
-container.register<EventEmitter>(
-  EventEmitter,
-  { useValue: events }
-  // { lifecycle: Lifecycle.Singleton }
-);
+container.register("EventEmitter", events);
 
 export const eventNames = [
   UserActivityReportEventName,

@@ -1,14 +1,12 @@
 import { ISensor } from "./ISensor";
-import { injectable, injectAll, registry, container } from "tsyringe";
+import { container } from "../IoC/Container";
 import { EventEmitter } from "../EventEmitter";
 import { UserActivityReportEvent } from "../EventEmitter/events/UserActivityReportEvent";
-const events = container.resolve(EventEmitter);
+const events = container.resolve<EventEmitter>("EventEmitter");
 
 // Params:
 // timeToActive
 
-@injectable()
-@registry([{ token: "ISensor", useValue: ActivitySensor }])
 export class ActivitySensor implements ISensor {
   static lastActive: number = 0;
   static activeTimes: number = 0;
@@ -33,8 +31,10 @@ export class ActivitySensor implements ISensor {
       if (ActivitySensor.activeTimes > 5 || ActivitySensor.activeTimes < -5) {
         events.dispatchEvent(
           new CustomEvent("report/userActivity", {
-            activityLevel: ActivitySensor.activeTimes,
-          } as any)
+            detail: {
+              activityLevel: ActivitySensor.activeTimes,
+            } as any,
+          })
         );
       } else {
         ActivitySensor.runCheck();
@@ -46,3 +46,7 @@ export class ActivitySensor implements ISensor {
     ActivitySensor.runCheck();
   }
 }
+
+ActivitySensor.init();
+
+container.register("ISensor", ActivitySensor);

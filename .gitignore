@@ -1,3 +1,7 @@
 build
 node_modules
 output
+src/globalLoad.js
+src/Analyzers/Prebid/adapter.js
+modules.json
+tmp

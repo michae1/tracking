@@ -1,7 +1,7 @@
 import { generateUUID } from "./uid";
 import { getNow } from "./utils";
 
-const cookieTTL = window.XNSSSessionTTL || 60 * 1000;
+const cookieTTL = window.GPWCSessionTTL || 60 * 1000;
 
 export function setSessionCoookie(sessionId) {
   var now = getNow();
@@ -9,12 +9,12 @@ export function setSessionCoookie(sessionId) {
   time += cookieTTL;
   now.setTime(time);
   document.cookie =
-    "XNSSsession=" + sessionId + "; expires=" + now.toUTCString() + "; path=/";
+    "GPWCsession=" + sessionId + "; expires=" + now.toUTCString() + "; path=/";
 }
 
 export function getOrCreateSession(renew) {
   const sessionCookie = document.cookie.replace(
-    /(?:(?:^|.*;\s*)XNSSsession\s*\=\s*([^;]*).*$)|^.*$/,
+    /(?:(?:^|.*;\s*)GPWCsession\s*\=\s*([^;]*).*$)|^.*$/,
     "$1"
   );
   if (!sessionCookie) {

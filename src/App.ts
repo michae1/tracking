@@ -1,13 +1,25 @@
-import { injectable, injectAll, container } from "tsyringe";
+import { container } from "./IoC/Container";
 import { ISensor } from "./Sensors/ISensor";
-import { LoadSensor } from "./Sensors/LoadSensor";
+import { QueueProcessor } from "./Queue";
+import { EventEmitter } from "./EventEmitter";
 
-@injectable()
+const rootName = ROOT_NAME || "TRACKINGSYSTEM";
+
+if (!(window as any)[rootName]) {
+  (window as any)[rootName] = {
+    q: [],
+  };
+}
+
 export class App {
-  constructor(
-    @injectAll("ISensor")
-    private Sensors: ISensor[]
-  ) {
-    console.log("construct app", Sensors);
+  public static Sensors: ISensor[] = [];
+
+  static run() {
+    this.Sensors = container.resolveAll<ISensor>("ISensor");
+    const events = container.resolve<EventEmitter>("EventEmitter");
+
+    setTimeout(() => {
+      events.dispatchEvent(new CustomEvent("system/load", {} as any));
+    }, 1000);
   }
 }

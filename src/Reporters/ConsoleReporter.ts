@@ -1,15 +1,13 @@
-import { injectable, injectAll, registry, container } from "tsyringe";
+import { container } from "../IoC/Container";
 import { EventEmitter, eventNames } from "../EventEmitter";
-const events = container.resolve(EventEmitter);
+const events = container.resolve<EventEmitter>("EventEmitter");
 
-@injectable()
-@registry([{ token: "IReporter", useValue: ConsoleReporter }])
 export class ConsoleReporter {
-  constructor() {
-    console.log("created loadsensor");
-  }
   static report = (n: string, e: any) => {
-    console.log(n, e);
+    const landscape = performance
+      .getEntriesByType("resource")
+      .map((r) => r.name);
+    console.log(n, e?.detail, landscape);
   };
   static init(): void {
     for (let n of eventNames) {
@@ -17,3 +15,7 @@ export class ConsoleReporter {
     }
   }
 }
+
+ConsoleReporter.init();
+
+container.register("IReporter", ConsoleReporter);

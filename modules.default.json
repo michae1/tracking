@@ -1,0 +1,7 @@
+[
+	"./EventEmitter/index",
+	"./Reporters/ConsoleReporter",
+	"./Sensors/LoadSensor",
+	"./Sensors/PerformanceSensor",
+	"./Sensors/ActivitySensor"
+]

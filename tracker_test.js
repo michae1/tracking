@@ -41,7 +41,7 @@ AfterSuite(({ I }) => {
 Scenario("Should create global object", async ({I}) => {
   I.amOnPage("http://localhost:5005");
   let globalConfig = await I.executeScript(function () {
-    return window.XNSS;
+    return window.GPWC;
   });
   assert.equal(
     Object.keys(globalConfig).length > 0,
@@ -55,12 +55,12 @@ Scenario(
   async ({I}) => {
     I.amOnPage("http://localhost:5005");
     await I.executeScript(function () {
-      return window.XNSS.init("http://localhost:3001/track");
+      return window.GPWC.init("http://localhost:3001/track");
     });
     // pause()
     const result = await I.executeScript(
       function (r) {
-        return window.XNSS.track(r);
+        return window.GPWC.track(r);
       },
       { type: "test", value: "alex" }
     );
@@ -80,11 +80,11 @@ Scenario(
     I.amOnPage("http://localhost:5005");
     
     await I.executeScript(function () {
-      return window.XNSS.init("http://localhost:3001/track");
+      return window.GPWC.init("http://localhost:3001/track");
     });
     const result = await I.executeAsyncScript(
       function (r, done) {
-        return window.XNSS.track(r).then(
+        return window.GPWC.track(r).then(
           (x) => {
             var performance =
               window.performance ||
@@ -122,7 +122,7 @@ Scenario(
     // I.defineTimeout({ script: 5000 });
 
     await I.executeScript(function () {
-      return window.XNSS.init("http://localhost:3001/track");
+      return window.GPWC.init("http://localhost:3001/track");
     });
     // console.log("sleeping 11 seconds for landing");
     await I.wait(3);
