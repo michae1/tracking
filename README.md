@@ -19,7 +19,7 @@ A multipurpose dynamically built frontend tracking library.
 Library shold be able to be configured and build (maybe custom parts were injected in build time)
 
 Sample config: 
-```json
+```javascript
 {
 	sensors: [x,y,z],
 	accumulator: a
